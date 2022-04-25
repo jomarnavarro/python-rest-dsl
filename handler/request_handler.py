@@ -18,6 +18,7 @@ class RequestHandler(object):
             return IdFragment(self.fragments, self.__class__)
         elif (name in self.requestMethods):
             url = "/".join(self.fragments)
+            print(url)
             return RequestWrapper(method=name, url=url)
         elif (name in self.requestMapping):
             # print "attempted request map %s" % (name)
@@ -51,9 +52,12 @@ class RequestWrapper:
          - auth encodes with basic-auth. it will take either a tuple consisting of
            (username, password) or convert any dictionary with username and password fields set
         """
+
         options = {**self.options, **kwargs}
+        print(options)
         # options = self.options.items().update(kwargs.items()) # dict(self.options.items() | kwargs.items())
         data = options.get("data")
+        print(data)
         if (data is not None):
             content_type = options["headers"]["content-type"]
             if (content_type == "application/json"):
